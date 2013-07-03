@@ -5,7 +5,7 @@ public class Client {
 	public static void main(String[] args) throws Exception{
 	
 	
-		String sentence;int count = 0
+		String sentence;
 		String modifiedSentence;
 		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 		Socket clientSocket = new Socket("144.118.102.167",4444);
@@ -17,11 +17,9 @@ public class Client {
 		do{
 		sentence = inFromUser.readLine();
 		outToServer.writeBytes(sentence + '\n');
-		count++;
 		}while(!(sentence.equals("stop")));
 
-		//modifiedSentence = inFromServer.readLine();
-		//System.out.println("FROM SERVER: " + modifiedSentence);
+		
 		clientSocket.close();
 	}
 
