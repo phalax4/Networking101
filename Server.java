@@ -15,7 +15,7 @@ public static void main(String args[]) throws Exception{
 		clientSentence = inFromClient.readLine();
 		capitalizedSentence = clientSentence.toUpperCase()+ '\n';
 		System.out.println(capitalizedSentence);
-		}while(!(clientSentence.equals("stop")));		
+		}while(!(clientSentence.equals("STOP")));		
 
 		//outToClient.writeBytes(capitalizedSentence);
 	}
