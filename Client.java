@@ -12,7 +12,7 @@ public class Client {
 		
 		ipAddr = inIp.readLine();
 		
-		Socket clientSocket = new Socket(ipAddr,4444);
+		Socket clientSocket = new Socket("localhost",4444);
 		DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
 		
 		BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
