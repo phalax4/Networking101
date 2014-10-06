@@ -1,4 +1,3 @@
-package Crypt;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -12,15 +11,15 @@ import java.util.Scanner;
 //guess a and b  2 prime factors of c
 //for loop of all numbers 2 to c. c%i
 public class RSA {
-	public static void main(String args[]){
-		//15,23
-		//787,727
+	private int e;
+	private int c;
+	public RSA(){
 		int a = getNthPrime(15);
 		int b = getNthPrime(23);
 		//System.out.println(a+"  "+ b);
-		int c = a*b;
+		c = a*b;
 		int m = (a-1)*(b-1);	
-		int e = getCoprime(m);
+		e = getCoprime(m);
 		
 		System.out.println("Public key is: "+ "e: "+e+" c: "+c);
 		//up to the sqrt of n not all the way to n
@@ -32,10 +31,16 @@ public class RSA {
 		int Y = modulo(X,e,c);
 		int XX = modulo(Y,d,c);
 		System.out.println(X+" encrypted to "+Y+  " and decrypted back to "+XX);
-		Scanner red = new Scanner(System.in);
-		System.out.println("word: ");
-		String word = red.nextLine();
+	}
+	public static void main(String args[]){
+		//15,23
+		//787,727
 		
+		//Scanner red = new Scanner(System.in);
+		//System.out.println("Enter word: ");
+		//String word = red.nextLine();
+		
+		/*
 		for(int i = 0;i<word.length();i++){
 			int letter = (int)word.charAt(i);
 			int enc = modulo(letter,e,c);
@@ -46,15 +51,41 @@ public class RSA {
 		int yourd = in2.nextInt();
 		int yourc = in2.nextInt();
 		int num=0;
-		
+		*/
+		/*
 		do{
-			System.out.println("Enter a# to decrypt: ");
+			System.out.println("Enter a number to decrypt: ");
 			num = in2.nextInt();
 			int dec = modulo(num,yourd,yourc);
 			char ch = (char) dec;
 			System.out.println("That decrypts to "+ch);
 		}while(num!=0);
+		*/
+	}
+	public static char[] decrypt(int[] word,int yourd, int yourc ){//server needs word and private key
+		char[] dword = new char[word.length];
+		int num = 0; int i = 0;
+		do{
+			num = word[i];
+			int dec = modulo(num,yourd,yourc);
+			char ch = (char) dec;
+			//System.out.println("That decrypts to "+ch);
+			dword[i] = ch;
+			i++;
+		}while(num!=0);
 		
+		return dword;
+	}
+	public static int[] encrypt(String word,int e, int c){//needs public key
+		int[] numWord = new int[word.length()];
+		for(int i = 0;i<word.length();i++){
+			int letter = (int)word.charAt(i);
+			int enc = modulo(letter,e,c);
+			numWord[i] = enc;
+			System.out.println(word.charAt(i)+ " encrpyts to "+ enc);
+			
+		}
+		return numWord;
 	}
 	public static int getNthPrime(int n){
 		int k = 0;
