@@ -35,7 +35,16 @@ public class RSA {
 	public static void main(String args[]){
 		//15,23
 		//787,727
+		int a = getNthPrime(15);
+		int b = getNthPrime(23);
+		//System.out.println(a+"  "+ b);
+		int c = a*b;
+		int m = (a-1)*(b-1);	
+		int e = getCoprime(m);
 		
+		System.out.println("Public key is: "+ "e: "+e+" c: "+c);
+		int d = modulo(e,(totient(m)-1),m);
+		System.out.println("private:"+ "d: "+d + " c:"+c);
 		//Scanner red = new Scanner(System.in);
 		//System.out.println("Enter word: ");
 		//String word = red.nextLine();
@@ -62,31 +71,41 @@ public class RSA {
 		}while(num!=0);
 		*/
 	}
-	public static char[] decrypt(int[] word,int yourd, int yourc ){//server needs word and private key
-		char[] dword = new char[word.length];
+	public static String decryptWord(String word,int yourd, int yourc ){//server needs word and private key
+		//char[] dword = new char[word.length];
 		int num = 0; int i = 0;
+		String result = "";
+		String [] letters = word.split(" ");
+		//System.out.println(letters[0]);
 		do{
-			num = word[i];
+			num = Integer.parseInt(letters[i]);
 			int dec = modulo(num,yourd,yourc);
 			char ch = (char) dec;
 			//System.out.println("That decrypts to "+ch);
-			dword[i] = ch;
+			result+=ch;
 			i++;
-		}while(num!=0);
+			
+		}while(i<letters.length);
 		
-		return dword;
+		return result;
 	}
-	public static int[] encrypt(String word,int e, int c){//needs public key
-		int[] numWord = new int[word.length()];
+	public static String encryptWord(String word,int e, int c){//needs public key
+		String numWord = "";
+		//int[] numWord = new int[word.length()];
 		for(int i = 0;i<word.length();i++){
 			int letter = (int)word.charAt(i);
 			int enc = modulo(letter,e,c);
-			numWord[i] = enc;
+			numWord += (enc +" ");
 			System.out.println(word.charAt(i)+ " encrpyts to "+ enc);
 			
 		}
 		return numWord;
 	}
+	
+	//public static String encryptSentence(String text,int e, int c){
+		
+		
+	//}
 	public static int getNthPrime(int n){
 		int k = 0;
 		int p = 2;

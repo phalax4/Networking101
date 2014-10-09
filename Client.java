@@ -10,7 +10,8 @@ public class Client extends Thread {
 	
 	
 		
-		
+		//Public key is: e: 13727 c: 4717
+
 		try {
 			ipAddr = inIp.readLine();
 			Socket clientSocket = new Socket("localhost",4444);
@@ -21,7 +22,8 @@ public class Client extends Thread {
 
 			do{
 			sentence = inFromUser.readLine();
-			outToServer.writeBytes(sentence + '\n');
+			
+			outToServer.writeBytes(RSA.encryptWord(sentence, 13727, 4717)+ '\n');
 			}while(!(sentence.equals("stop")));
 
 			
